@@ -32,6 +32,11 @@ public class KafkaEventPublisher {
         send(KafkaTopics.SCHEDULE_UPDATED, event.turmaId(), event);
     }
 
+    @TransactionalEventListener
+    public void on(StaffCreatedEvent event) {
+        send(KafkaTopics.STAFF_CREATED, event.tecnicoId(), event);
+    }
+
     private void send(String topic, Long key, Object event) {
         kafkaTemplate.send(topic, String.valueOf(key), event)
                 .whenComplete((result, ex) -> {

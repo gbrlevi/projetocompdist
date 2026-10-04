@@ -22,4 +22,9 @@ public class KafkaTopicConfig {
     NewTopic scheduleUpdatedTopic() {
         return TopicBuilder.name(KafkaTopics.SCHEDULE_UPDATED).partitions(3).replicas(1).build();
     }
+
+    @Bean
+    NewTopic staffCreatedTopic() {
+        return TopicBuilder.name(KafkaTopics.STAFF_CREATED).partitions(3).replicas(1).build();
+    }
 }
