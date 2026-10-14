@@ -17,8 +17,9 @@ RUN mvn -B -q package -DskipTests \
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-RUN groupadd --system spring && useradd --system --gid spring spring
-USER spring
+RUN groupadd --system --gid 1001 spring && useradd --system --uid 1001 --gid spring spring
+# UID numerico: o Kubernetes so consegue validar runAsNonRoot com um usuario numerico
+USER 1001
 
 # Camadas da menos para a mais volatil: dependencias mudam pouco, o codigo muda sempre
 COPY --from=build /workspace/extracted/dependencies/ ./
